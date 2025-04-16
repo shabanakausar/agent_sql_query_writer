@@ -32,3 +32,4 @@ huggingface_hub
 langchain-community
 langchain-groq
 sqlalchemy
+--upgrade langchain-community
