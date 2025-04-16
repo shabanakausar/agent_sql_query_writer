@@ -45,7 +45,7 @@ if not groq_api_key:
 
 
 ## LLM Model
-llm = ChatGroq(groq_api_key=groq_api_key,model_name="Gemma2-9b-It",streaming=True)
+llm = ChatGroq(groq_api_key=groq_api_key,model_name="gemma-7b-it",streaming=True)
 
 @st.cache_resource(ttl="2h")
 def configure_db(db_uri,mysql_host=None,mysql_user=None,mysql_password=None,mysql_db=None):
