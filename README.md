@@ -79,5 +79,3 @@ Cache duration: Adjust ttl in the @st.cache_resource decorator
 
 Agent type: Modify AgentType in the create_sql_agent call
 
-Screenshots
-
