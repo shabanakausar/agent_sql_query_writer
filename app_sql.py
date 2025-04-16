@@ -33,7 +33,7 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 load_dotenv()
 import os
-
+groq_api_key = os.environ.get("groq_api_key")
 groq_api_key = os.getenv("groq_api_key")
 groq_api_key = st.sidebar.text_input(label="Groq API Key",type="password")
 
