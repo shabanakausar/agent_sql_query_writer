@@ -37,8 +37,9 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 load_dotenv()
 import os
+groq_api_key = os.environ.get("GROQ_API_KEY")
+groq_api_key = os.getenv("GROQ_API_KEY")
 
-groq_api_key = os.getenv("groq_api_key")
 groq_api_key = st.sidebar.text_input(label="Groq API Key",type="password")
 
 if not db_uri:
@@ -49,7 +50,7 @@ if not groq_api_key:
 
 
 ## LLM Model
-llm = ChatGroq(groq_api_key=groq_api_key,model_name="Gemma2-9b-It",streaming=True)
+llm = ChatGroq(groq_api_key=groq_api_key,model_name="mixtral-8x7b-32768",streaming=True)
 
 @st.cache_resource(ttl="2h")
 def configure_db(db_uri,mysql_host=None,mysql_user=None,mysql_password=None,mysql_db=None):
