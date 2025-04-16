@@ -8,6 +8,10 @@ from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from sqlalchemy import create_engine
 import sqlite3
 from langchain_groq import ChatGroq
+from langchain_community.agent_toolkits.sql.base import create_sql_agent
+from langchain_community.utilities import SQLDatabase
+from langchain_community.callbacks.streamlit import StreamlitCallbackHandler
+from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
 
 st.set_page_config(page_title="Langchain: Chat with SQL DB", page_icon= "🖥️" )
 st.title("🖥️ Langchain: Chat with SQL DB")
@@ -33,7 +37,7 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 load_dotenv()
 import os
-groq_api_key = os.environ.get("groq_api_key")
+
 groq_api_key = os.getenv("groq_api_key")
 groq_api_key = st.sidebar.text_input(label="Groq API Key",type="password")
 
@@ -45,7 +49,7 @@ if not groq_api_key:
 
 
 ## LLM Model
-llm = ChatGroq(groq_api_key=groq_api_key,model_name="gemma-7b-it",streaming=True)
+llm = ChatGroq(groq_api_key=groq_api_key,model_name="Gemma2-9b-It",streaming=True)
 
 @st.cache_resource(ttl="2h")
 def configure_db(db_uri,mysql_host=None,mysql_user=None,mysql_password=None,mysql_db=None):
