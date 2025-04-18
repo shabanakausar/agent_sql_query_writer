@@ -1,6 +1,10 @@
 import streamlit as st
 from pathlib import Path 
+from langchain.agents import create_sql_agent
+from langchain.sql_database import SQLDatabase
 from langchain.agents.agent_types import AgentType
+from langchain.callbacks import StreamlitCallbackHandler
+from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from sqlalchemy import create_engine
 import sqlite3
 from langchain_groq import ChatGroq
@@ -28,13 +32,14 @@ if radio_opt.index(selected_opt)==1:
 else:
     db_uri=LOCALDB
 
-
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 load_dotenv()
 import os
-groq_api_key = os.environ.get("GROQ_API_KEY")
-groq_api_key = os.getenv("GROQ_API_KEY")
+
+if "GROQ_API_KEY" not in os.environ:
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    groq_api_key = os.getenv("GROQ_API_KEY")
 
 groq_api_key = st.sidebar.text_input(label="Groq API Key",type="password")
 
@@ -46,7 +51,7 @@ if not groq_api_key:
 
 
 ## LLM Model
-llm = ChatGroq(groq_api_key=groq_api_key,model_name="mixtral-8x7b-32768",streaming=True)
+llm = ChatGroq(groq_api_key=groq_api_key,model_name="gemma2-9b-it",streaming=True)
 
 @st.cache_resource(ttl="2h")
 def configure_db(db_uri,mysql_host=None,mysql_user=None,mysql_password=None,mysql_db=None):
@@ -61,9 +66,7 @@ def configure_db(db_uri,mysql_host=None,mysql_user=None,mysql_password=None,mysq
                 st.stop()
 
             # Return the constructed SQLDatabase
-            return SQLDatabase(
-                create_engine(f"mysql+mysqlconnector://{mysql_user}:{mysql_password}@{mysql_host}/{mysql_db}")
-            )
+            return SQLDatabase(create_engine(f"mysql+mysqlconnector://{mysql_user}:{mysql_password}@{mysql_host}/{mysql_db}")          )
 
 
 if db_uri == MYSQL:
