@@ -37,9 +37,8 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 
-if "GROQ_API_KEY" not in os.environ:
-    groq_api_key = os.environ.get("GROQ_API_KEY")
-    groq_api_key = os.getenv("GROQ_API_KEY")
+groq_api_key = os.environ.get("GROQ_API_KEY")
+groq_api_key = os.getenv("GROQ_API_KEY")
 
 groq_api_key = st.sidebar.text_input(label="Groq API Key",type="password")
 
