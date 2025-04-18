@@ -33,3 +33,4 @@ langchain-community
 langchain-groq
 sqlalchemy
 langchain-community==0.3.21
+-U langchain-groq
