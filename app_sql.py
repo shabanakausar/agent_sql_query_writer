@@ -65,8 +65,7 @@ def configure_db(db_uri,mysql_host=None,mysql_user=None,mysql_password=None,mysq
                 st.stop()
 
             # Return the constructed SQLDatabase
-            return SQLDatabase(create_engine(f"mysql+mysqlconnector://{mysql_user}:{mysql_password}@{mysql_host}/{mysql_db}")          )
-
+            return SQLDatabase(create_engine( f"mysql+pymysql://{mysql_user}:{mysql_password}@{mysql_host}/{mysql_db}"))
 
 if db_uri == MYSQL:
     db=configure_db(db_uri,mysql_host,mysql_user,mysql_password,mysql_db)
